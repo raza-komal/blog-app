@@ -1,58 +1,58 @@
 import express from "express";
-import cors from 'cors';
-import mysql from "mysql";
-import dotenv from 'dotenv';
+import cors from "cors";
+import dotenv from "dotenv";
+import db from "./dbConnect.js";
+import authRoutes from "./route/auth.js";
+import postRoutes from "./route/posts.js";
+import cookieParser from "cookie-parser";
+
+import multer from "multer";
 
 dotenv.config();
 
-
 const app = express();
 const port = process.env.PORT;
-const db = mysql.createConnection({
-  host: process.env.MYSQL_HOST,
-  port: process.env.MYSQL_PORT,
-  user: "admin",
-  password: process.env.MYSQL_DB_PASSWORD,
-  database: process.env.DATABASE,
-});
 
-db.connect((err, res) => {
-  if (err) throw err;
-  console.log("Db Connected");
-});
-const sqlFetch =
-  "SELECT * FROM books";
+const sqlFetch = "SELECT * FROM books";
 
-app.get("/books", (req, res) => {
+/*  app.get("/books", (req, res) => {
   db.query(sqlFetch, (err, result) => {
     if (err) console.log("error", err.message);
     res.json(result);
   });
 
 //  db.end();
+}); */
+
+app.use(express.json());
+app.use(cookieParser());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+    optionsSuccessStatus: 200,
+  })
+);
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "../client/public/assets");
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now();
+    cb(null, uniqueSuffix + "-" + file.originalname);
+  },
 });
 
+const upload = multer({ storage: storage });
 
+app.post("/upload", upload.single("file"), function (req, res) {
+  const file = req.file;
+  res.status(200).json(file?.filename);
+});
 
-
-
-app.use(express.json())
-app.use(cors())
-const sqlInsert  = "INSERT INTO books (title,subTitle,author,price,cover_page) VALUES (?)";
-
-app.post("/books", (req,res) => {
-  const values = [req.body.title,req.body.subTitle, req.body.author,req.body.price,req.body.cover_page];
-  db.query(sqlInsert,[values] ,(err, result) => {
-    if (err) console.log("error", err.message);
-    res.json(result);
-  });
-//  db.end()
-})
-
-
+app.use("/users", authRoutes);
+app.use("/posts", postRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running at ${port}`);
 });
-
-
