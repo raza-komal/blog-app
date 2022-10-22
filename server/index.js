@@ -15,14 +15,6 @@ const port = process.env.PORT;
 
 const sqlFetch = "SELECT * FROM books";
 
-/*  app.get("/books", (req, res) => {
-  db.query(sqlFetch, (err, result) => {
-    if (err) console.log("error", err.message);
-    res.json(result);
-  });
-
-//  db.end();
-}); */
 
 app.use(express.json());
 app.use(cookieParser());

@@ -9,7 +9,6 @@ const Menu = ({ catg }) => {
     try {
       const res = await axios.get(`/posts/?catg=${catg}`);
 
-      console.log(res.data);
       setPosts(res.data);
     } catch (error) {
       console.log(error);

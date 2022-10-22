@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 const SignUp = () => {
@@ -26,7 +25,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("clicked");
+
     try {
      if(!isSignUp){
       await login(data);
@@ -40,7 +39,6 @@ const SignUp = () => {
       setErrMsg(error.response.data);
     }
 
-    // await axios.post("http://localhost:3400/users/signup", data).then(res => console.log("first", res)).catch(err => console.log(err))
   };
   return (
     <div className="auth">

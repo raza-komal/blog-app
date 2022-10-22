@@ -53,7 +53,7 @@ export const fetchPost = (req, res) => {
 
 export const updatePost = (req, res) => {
   const token = req.cookies.token;
-  console.log("update", token);
+
   if (!token) return res.status(401).json("Not authenticated");
 
   jwt.verify(token, "jwttest", (err, userInfo) => {
@@ -78,7 +78,7 @@ export const updatePost = (req, res) => {
 
 export const deletePost = (req, res) => {
   const token = req.cookies.token;
-  console.log("delete", token);
+
   if (!token) return res.status(401).json("You are not authenticated");
 
   jwt.verify(token, "jwttest", (err, userInfo) => {

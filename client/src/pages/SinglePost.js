@@ -16,8 +16,6 @@ const SinglePost = () => {
   const fetchPost = async () => {
     try {
       const res = await axios.get(`http://localhost:3400/posts/${postId}`);
-
-      console.log(res.data);
       setPost(res.data);
     } catch (error) {
       console.log(error);
@@ -36,7 +34,7 @@ const SinglePost = () => {
     return doc.body.textContent;
    }
   
-  console.log(currUser);
+ 
   const handleEdit = () => {};
   return (
     <div className="single">
