@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
 const Write = () => {
   const state = useLocation().state;
-  console.log(state);
+
   const [title, setTitle] = useState(state?.title || "");
   const [value, setValue] = useState(state?.desc || "");
   const [file, setFile] = useState(null);
@@ -33,7 +33,7 @@ const Write = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const imgUrl = await upload();
-    console.log("file", imgUrl);
+    
     try {
       state
         ? await axios.put(`/posts/${state?.id}`, {

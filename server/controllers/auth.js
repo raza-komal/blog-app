@@ -10,7 +10,6 @@ export const signin = (req, res) => {
     if (result?.length === 0) return res.status(404).json("User not Found");
 
     // Check password
-    // console.log("Result founed", result);
     const isPasswordMatch = bcrypt.compareSync(
       req.body.password,
       result[0].password
@@ -33,7 +32,7 @@ export const signin = (req, res) => {
     res.cookie("token", token, { httpOnly: true });
     res.status(200).json(other);
 
-    console.log("Signin", req.cookies["token"]);
+    
   });
 };
 
@@ -42,7 +41,7 @@ export const signup = (req, res) => {
 
   db.query(que, [req.body.email, req.body.username], (err, result) => {
     if (err) return res.json(err);
-    console.log(result);
+   
 
     if (result?.length) return res.status(409).json("User already registered");
 

@@ -5,11 +5,11 @@ import axios from "axios";
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const catg = useLocation().search;
-  console.log(catg);
+ 
   const fetchPosts = async () => {
     try {
       const res = await axios.get(`http://localhost:3400/posts/${catg}`);
-      console.log(res.data);
+   
       setPosts(res.data);
     } catch (error) {
       console.log(error);
@@ -19,6 +19,7 @@ const Home = () => {
   useEffect(() => {
     fetchPosts();
   }, [catg]);
+  
  const getText=(html)=>{
   const doc= new DOMParser().parseFromString(html, "text/html");
   return doc.body.textContent;

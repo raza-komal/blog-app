@@ -1,14 +1,13 @@
-import React from 'react'
+import React from "react";
 
 const Footer = () => {
   return (
     <footer>
+      <img src="assets/logo2.png" alt="Kolam" />
 
-      <img src="" alt="logo" />
-      <span>Made with React </span>
-
+      <span>Made with ❤️ and React </span>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

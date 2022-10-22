@@ -6,7 +6,6 @@ import Home from "./Home";
 const BottomNav = () => {
   const [posts, setPosts] = useState([]);
   const catg = useLocation().search;
-  console.log(catg);
   const fetchPosts = async () => {
     try {
       const res = await axios.get(`http://localhost:3400/posts/${catg}`);
